@@ -126,10 +126,11 @@ php() {
   rm -rf "$dir" || true
   mkdir -p "$dir"
 
-  npx @openapitools/openapi-generator-cli@2.25.2 version-manager set 7.17.0
+  npx @openapitools/openapi-generator-cli@2.25.2 version-manager set 7.26.0
   npx @openapitools/openapi-generator-cli@2.25.2 generate -i "${SPEC_FILE}" \
     -g php \
     -o "$dir" \
+    -t ./config/client/php-templates \
     --git-user-id ory \
     --git-repo-id "${GIT_REPO}-php" \
     --git-host github.com \
@@ -137,7 +138,7 @@ php() {
 
   file="${dir}/composer.json"
 
-  jq -r ".name=\"${PHP_PACKAGE_NAME}-php\" | .homepage = \"https://github.com/ory/${GIT_REPO}-php\" | .authors[0].name = \"Ory Corp\" | .authors[0].homepage = \"https://www.ory.sh\" | .license = \"Apache-2.0\"" "${file}" \
+  jq -r ".name=\"${PHP_PACKAGE_NAME}-php\" | .homepage = \"https://github.com/ory/${GIT_REPO}-php\" | .authors[0].name = \"Ory Corp\" | .authors[0].homepage = \"https://www.ory.sh\" | .license = \"Apache-2.0\" | .require[\"guzzlehttp/guzzle\"] = \"^7.3 || ^8.0\" | .require[\"guzzlehttp/psr7\"] = \"^1.7 || ^2.0 || ^3.0\"" "${file}" \
      > tmp.$$.json && mv tmp.$$.json "${file}"
 
   cat "${file}"
