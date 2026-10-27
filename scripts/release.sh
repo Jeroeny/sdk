@@ -145,6 +145,7 @@ php() {
   dir="clients/${PROJECT}/php"
 
   (cd "${dir}"; composer install)
+  rm -rf "${dir}/vendor"
   to_git "php" "yes"
 }
 

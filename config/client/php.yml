@@ -5,3 +5,7 @@ invokerPackage: ${PHP_INVOKER_PACKAGE}
 disallowAdditionalPropertiesIfNotPresent: false
 enumUnknownDefaultCase: true
 legacyDiscriminatorBehavior: true
+files:
+  gitattributes.mustache:
+    templateType: SupportingFiles
+    destinationFilename: .gitattributes

@@ -130,6 +130,7 @@ php() {
   npx @openapitools/openapi-generator-cli@2.25.2 generate -i "${SPEC_FILE}" \
     -g php \
     -o "$dir" \
+    -t ./config/client/php-templates \
     --git-user-id ory \
     --git-repo-id "${GIT_REPO}-php" \
     --git-host github.com \
